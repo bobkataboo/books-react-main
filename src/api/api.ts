@@ -11,16 +11,22 @@ function api(endpoint:string, body?:object) {
   const url = {}
     axios({
         method: 'post',
-        url: `${API_URL}/${endpoint ? `${endpoint}/` : ''}`,
+        baseURL: `${API_URL}/${endpoint ? `${endpoint}/` : ''}`,
         headers: {
           
+        },
+        data: {
+          username: 'bo',
+          password: 'cd37cdm3734'
         }
         // data: {
         //   firstName: 'Fred',
         //   lastName: 'Flintstone'
         // }
-      }).then(response => {
+      }).then((response) => {
         console.log("@@@@@ data", response)
+        const {data} = response
+        console.log("@@@@@@ data", data)
       });
       
 }

@@ -33,7 +33,7 @@ const Login = () => <div className="Login v">
                 return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-            api('login', values )
+            api('api/token', values )
             setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
@@ -59,11 +59,13 @@ const Login = () => <div className="Login v">
                         placeholder="Username"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.email}
+                        // value={values.email}
                      />
                 </div>
 
-            {errors.email && touched.email && errors.email ? <div className='m warning'>{errors.email}</div> : null}
+                {errors.username && touched.username && <div>{errors.username}</div>}
+
+            {/* {errors.email && touched.email && errors.email ? <div className='m warning'>{errors.email}</div> : null} */}
             <div className="input p">
                 <input
                     className="p"
