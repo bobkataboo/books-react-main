@@ -1,0 +1,13 @@
+.NavBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #5f9ea0;
+}
+.NavBar .nav-btn {
+  cursor: pointer;
+  padding: 16px;
+}
+/*# sourceMappingURL=NavBar.css.map */

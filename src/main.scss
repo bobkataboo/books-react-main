@@ -1,0 +1,23 @@
+.flex {
+  display: flex;
+  align-content: flex-end;
+}
+.grow {
+  flex-grow: 1;
+}
+
+.hand {
+  &.hover{
+    cursor: pointer;
+  }
+}
+
+.input{
+  width: 100%;
+  margin: 8px;
+   input {
+    width: 90%;
+    height: 5px;
+    padding: 8px;
+  }
+}

@@ -1,0 +1,12 @@
+// @app-primary: #0f3460;
+// @app-secondary: #e94560;
+@import "./components/NavBar/NavBar.scss";
+@import "main.scss";
+// @import "./ora-framework.scss";
+@import './components/Login/Login.scss';
+
+.App {
+  height: 100vh;
+  // .NavBar;
+  // .Login;
+}

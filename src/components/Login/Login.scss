@@ -1,0 +1,35 @@
+.Login{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+    display: grid;
+    place-items: center;
+    .login-form{
+        align-self: center;
+        border: solid 1px black;
+        border-radius: 6px;
+        > form{
+            width: 340px;
+            margin: 8px;
+            display: flex;
+            flex-direction: column;
+            .input{
+                > input {
+                    height: 30px;
+                }
+            }
+            .item{
+                margin: 8px;
+                height: 50px !important;
+            }
+            .submit{
+                height: 50px !important;
+            }
+            .warning{
+                margin: 0px 8px;
+                color: red;
+            }
+        }
+    }
+}
