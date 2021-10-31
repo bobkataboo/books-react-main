@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Formik } from 'formik';
 import user from '../../Stores/UserStore';
-import api from '../../api/api';
+import api, { login } from '../../api/api';
  
  const Basic = () => (
    <div>
@@ -21,21 +21,10 @@ const Login = () => <div className="Login v">
     <div className='login-form'>
         <Formik
             initialValues={{ username: '', password: '' }}
-            validate={values => {
-                const errors:errors = {};
-                if (!values.username) {
-                errors.email = 'Required';
-                } else if (
-                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.username)
-                ) {
-                errors.email = 'Invalid email address';
-                }
-                return errors;
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-            api('api/token', values )
+            onSubmit={(values, { setSubmitting }) => {
+            login('auth/login', values)
             setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
+            // alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
             }, 400);
         }}
@@ -85,8 +74,6 @@ const Login = () => <div className="Login v">
             >
                 Submit
             </button>
-            
-            
             </form>
         )}
         </Formik>

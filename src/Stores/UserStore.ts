@@ -1,4 +1,5 @@
-import {observable} from 'mobx'
+import {action, observable} from 'mobx'
+import storage from '../storage/storage'
 
 
 // interface UserStoreInterface{
@@ -7,8 +8,14 @@ import {observable} from 'mobx'
 
 class UserStore{
     // loggedIn: boolean
-    constructor() {
-        // this.loggedIn = true
+    constructor() { 
+        if (storage.get('token')) {
+            this.loggedIn = true
+        }
+    }
+
+    @action.bound setLoggedIn(value: boolean) {
+        this.loggedIn = value
     }
 
     @observable loggedIn = false

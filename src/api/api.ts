@@ -1,34 +1,62 @@
 import storage from "../storage/storage"
 import axios from 'axios'
+import user from "../Stores/UserStore"
 
 
 const API_URL = 'http://127.0.0.1:8000'
 
 
-function api(endpoint:string, body?:object) {
-  console.log("@@@@@@ endPoint", endpoint)
-  console.log("@@@@ body", body)
+export function login(endpoint:string, body?:object, methodParam?:string,) {
+  // console.log("@@@@@@ url", `${API_URL}/${endpoint ? `${endpoint}/` : ''}`)
+  // console.log("@@@@ url",)
+  // console.log("@@@@ body", body)
   const url = {}
+  const data = {
+   ...body
+  }
+  console.log("@@@@@ data", data)
+  	const headers = {'content-type': 'application/json', 'Authorization': ''}
+  // const method = methodParam ? methodParam : 'post'
     axios({
         method: 'post',
-        baseURL: `${API_URL}/${endpoint ? `${endpoint}/` : ''}`,
-        headers: {
-          
-        },
-        data: {
-          username: 'bo',
-          password: 'cd37cdm3734'
-        }
-        // data: {
-        //   firstName: 'Fred',
-        //   lastName: 'Flintstone'
-        // }
-      }).then((response) => {
+        url: `${API_URL}/${endpoint ? `${endpoint}/` : ''}`,
+        headers,
+        data
+      })
+      .then((response) => {
         console.log("@@@@@ data", response)
-        const {data} = response
+        const { data } = response
         console.log("@@@@@@ data", data)
+        user.setLoggedIn(true)
+        storage.set('token', data.access)
+        storage.set('refresh', data.refresh)
       });
       
+}
+
+function api(endpoint:string, body?:object, useMethod?:string){
+  const token = storage.get('token')
+
+  const headers = {'content-type': 'application/json', 'Authorization': ''}
+
+  if (user.loggedIn) {
+    headers.Authorization = `Bearer ${token}`
+  }
+
+  console.log("@@@@@ headers", headers)
+  const data = {...body}
+
+  axios({
+    method: 'get',
+    data,
+    url: `${API_URL}/${endpoint ? `${endpoint}/` : ''}`,
+    headers: {'content-type': 'application/json', 'Authorization': ''},
+  }).then((response) => {
+    console.log("@@@@@@ response", response)
+  })
+  
+
+
 }
 
 export default api
@@ -72,4 +100,4 @@ export default api
 // function logout() {
 // 		window.localStorage.removeItem(localStorageKey)
 // }
-export {}
+// export {}
