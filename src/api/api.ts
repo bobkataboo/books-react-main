@@ -6,7 +6,7 @@ import user from "../Stores/UserStore"
 const API_URL = 'http://127.0.0.1:8000'
 
 
-export function login(endpoint:string, body?:object ) {
+export function login(endpoint:string, body?:object, history?:any ) {
   const url = {}
   const data = {
    ...body
@@ -24,6 +24,7 @@ export function login(endpoint:string, body?:object ) {
         user.setLoggedIn(true)
         storage.set('token', data.access)
         storage.set('refresh', data.refresh)
+        history.push('/books')
       });
       
 }
@@ -45,6 +46,7 @@ function api(endpoint:string, body?:object, useMethod?:string){
     url: `${API_URL}/${endpoint ? `${endpoint}/` : ''}`,
     headers,
   }).then((response) => {
+    console.log("@@@@@ respls", response)
     return response
   })
   

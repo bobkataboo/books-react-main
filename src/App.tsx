@@ -9,6 +9,7 @@ import Login from './components/Login/Login';
 import Books from './components/Books/Books'
 import UserStore from './Stores/UserStore';
 import { observer } from 'mobx-react';
+import Register from './components/Register/Register';
 
 
 function App() {
@@ -28,11 +29,14 @@ const SwitchWrapper = observer(() => {
   <Route path='/login'>
       <Login ></Login>
   </Route>
-  <Route path='/'>
-   <Books/>
-  </Route>
   <Route path="/books">
     <Books/>
+  </Route>
+  <Route path="/register">
+    <Register/>
+  </Route>
+  <Route path='/'>
+   <Books/>
   </Route>
 </Switch>
 </>

@@ -3,6 +3,7 @@ import React from 'react'
 import { Formik } from 'formik';
 import UserStore from '../../Stores/UserStore';
 import api, { login } from '../../api/api';
+import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
  
  const Basic = () => (
@@ -17,12 +18,15 @@ import { observer } from 'mobx-react';
 
  }
 
-const Login = observer(() => <div className="Login v">
+const Login = observer(() => {
+    const history = useHistory()
+
+return <div className="Login v">
     <div className='login-form'>
         <Formik
             initialValues={{ username: '', password: '' }}
             onSubmit={(values, { setSubmitting }) => {
-            login('auth/login', values)
+            login('auth/login', values, history)
             setTimeout(() => {
             // alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
@@ -79,6 +83,6 @@ const Login = observer(() => <div className="Login v">
         </Formik>
     </div>
 
-</div>)
+</div>})
 
 export default Login

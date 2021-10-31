@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react'
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
+import { ReactReader } from 'react-reader'
 import { Tracing } from 'trace_events'
 import { Url } from 'url'
 import api from '../../api/api'
@@ -30,8 +31,18 @@ const Books = observer(() => {
 
 
 const Book = observer(({book}:BookInterface) => {
+    const [open, setOpen] = useState(false)
 
-    return <div key={book.id} className='book'>
+    if(open) {
+        return       <ReactReader
+        // location={location}
+        // locationChanged={locationChanged}
+        url={book.url}
+      />
+    }
+
+
+    return <div onClick={() => setOpen(true)} key={book.id} className='book'>
         <div>
             {book.title}
         </div>
