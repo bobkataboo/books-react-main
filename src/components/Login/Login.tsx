@@ -1,8 +1,9 @@
 import React from 'react'
 
 import { Formik } from 'formik';
-import user from '../../Stores/UserStore';
+import UserStore from '../../Stores/UserStore';
 import api, { login } from '../../api/api';
+import { observer } from 'mobx-react';
  
  const Basic = () => (
    <div>
@@ -16,8 +17,7 @@ import api, { login } from '../../api/api';
 
  }
 
-const Login = () => <div className="Login v">
-    {console.log("@@@@ loggedIn", user)}
+const Login = observer(() => <div className="Login v">
     <div className='login-form'>
         <Formik
             initialValues={{ username: '', password: '' }}
@@ -79,6 +79,6 @@ const Login = () => <div className="Login v">
         </Formik>
     </div>
 
-</div>
+</div>)
 
 export default Login

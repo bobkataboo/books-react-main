@@ -6,15 +6,11 @@ import user from "../Stores/UserStore"
 const API_URL = 'http://127.0.0.1:8000'
 
 
-export function login(endpoint:string, body?:object, methodParam?:string,) {
-  // console.log("@@@@@@ url", `${API_URL}/${endpoint ? `${endpoint}/` : ''}`)
-  // console.log("@@@@ url",)
-  // console.log("@@@@ body", body)
+export function login(endpoint:string, body?:object ) {
   const url = {}
   const data = {
    ...body
   }
-  console.log("@@@@@ data", data)
   	const headers = {'content-type': 'application/json', 'Authorization': ''}
   // const method = methodParam ? methodParam : 'post'
     axios({
@@ -24,9 +20,7 @@ export function login(endpoint:string, body?:object, methodParam?:string,) {
         data
       })
       .then((response) => {
-        console.log("@@@@@ data", response)
         const { data } = response
-        console.log("@@@@@@ data", data)
         user.setLoggedIn(true)
         storage.set('token', data.access)
         storage.set('refresh', data.refresh)
@@ -43,16 +37,15 @@ function api(endpoint:string, body?:object, useMethod?:string){
     headers.Authorization = `Bearer ${token}`
   }
 
-  console.log("@@@@@ headers", headers)
   const data = {...body}
 
-  axios({
+  return axios({
     method: 'get',
     data,
     url: `${API_URL}/${endpoint ? `${endpoint}/` : ''}`,
-    headers: {'content-type': 'application/json', 'Authorization': ''},
+    headers,
   }).then((response) => {
-    console.log("@@@@@@ response", response)
+    return response
   })
   
 
@@ -97,7 +90,9 @@ export default api
 // 		})
 // }
 
-// function logout() {
-// 		window.localStorage.removeItem(localStorageKey)
-// }
+export function logout() {
+    user.setLoggedIn(false)
+		window.localStorage.removeItem('token')
+    window.localStorage.removeItem('refreshToken')
+}
 // export {}

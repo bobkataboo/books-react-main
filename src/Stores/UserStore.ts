@@ -1,4 +1,4 @@
-import {action, observable} from 'mobx'
+import {action, computed, observable} from 'mobx'
 import storage from '../storage/storage'
 
 
@@ -8,19 +8,23 @@ import storage from '../storage/storage'
 
 class UserStore{
     // loggedIn: boolean
-    constructor() { 
+    constructor(any?:any) { 
         if (storage.get('token')) {
             this.loggedIn = true
         }
+
+    }
+    @observable loggedIn = false
+    @computed get isLoggedIn() {
+        return this.loggedIn
     }
 
     @action.bound setLoggedIn(value: boolean) {
         this.loggedIn = value
     }
-
-    @observable loggedIn = false
-
 }
 
+
 const user = new UserStore()
+
 export default user

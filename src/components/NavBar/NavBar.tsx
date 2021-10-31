@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import api, { logout } from '../../api/api'
 import user from '../../Stores/UserStore'
 import Login from '../Login/Login'
 
@@ -10,13 +11,14 @@ const NavBar = observer(() => {
        <div className="grow">
 
        </div>
-           {user.loggedIn ? <><div className="nav-btn">
+       {console.log("@@@@@@ isLoggedIn", user.isLoggedIn)}
+           {user.isLoggedIn ? <><div className="nav-btn">
            <Link to="/books" >
                 Books
             </Link>
        </div>
        <div className="nav-btn">
-           <div>
+           <div onClick={logout}>
                 Logout
            </div>
        </div></> : <><div className="nav-btn">

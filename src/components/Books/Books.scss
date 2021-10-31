@@ -1,0 +1,16 @@
+.Books{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+    display: grid;
+    place-items: center;
+    .book{
+        padding: 8px;
+        margin: 8px;
+        width: 300px;
+        height: 200px;
+        border: 1px solid black;
+        border-radius: 6px;
+    }
+}
