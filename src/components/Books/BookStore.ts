@@ -1,14 +1,11 @@
-import {action, observable} from 'mobx'
-import api from '../../api/api'
+import { action, observable } from 'mobx';
 
-
-
-class BookStore{
+class BookStore {
     @observable books = []
 
     @action setBooks(books) {
-        this.books = books
+      this.books = books;
     }
 }
 
-export default BookStore
+export default BookStore;

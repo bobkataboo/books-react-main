@@ -1,39 +1,32 @@
-import React from 'react'
+import React from 'react';
 
 import { Formik } from 'formik';
-import UserStore from '../../Stores/UserStore';
-import api, { login } from '../../api/api';
 import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
- 
- const Basic = () => (
-   <div>
-     <h1>Anywhere in your app!</h1>
-    
-   </div>
- );
+import { login } from '../../api/api';
 
- interface errors{
-     email?: string;
+//  interface errors{
+//      email?: string;
 
- }
+//  }
 
 const Login = observer(() => {
-    const history = useHistory()
+  const history = useHistory();
 
-return <div className="Login v">
-    <div className='login-form'>
+  return (
+    <div className="Login v">
+      <div className="login-form">
         <Formik
-            initialValues={{ username: '', password: '' }}
-            onSubmit={(values, { setSubmitting }) => {
-            login('auth/login', values, history)
+          initialValues={{ username: '', password: '' }}
+          onSubmit={(values, { setSubmitting }) => {
+            login('auth/login', values, history);
             setTimeout(() => {
-            // alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
+              // alert(JSON.stringify(values, null, 2));
+              setSubmitting(false);
             }, 400);
-        }}
+          }}
         >
-        {({
+          {({
             values,
             errors,
             touched,
@@ -42,47 +35,46 @@ return <div className="Login v">
             handleSubmit,
             isSubmitting,
             /* and other goodies */
-        }) => (
+          }) => (
             <form onSubmit={handleSubmit}>
-                <div  className="input p">
-                    <input
-                        className="p"
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        // value={values.email}
-                     />
-                </div>
-
-                {errors.username && touched.username && <div>{errors.username}</div>}
-
-            {/* {errors.email && touched.email && errors.email ? <div className='m warning'>{errors.email}</div> : null} */}
-            <div className="input p">
+              <div className="input p">
                 <input
-                    className="p"
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.password}
+                  className="p"
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
-            </div>
-            {errors.password && touched.password && errors.password}
-            <button 
-                type="submit" 
-                className="item hand" 
+              </div>
+
+              {errors.username && touched.username && <div>{errors.username}</div>}
+              <div className="input p">
+                <input
+                  className="p"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.password}
+                />
+              </div>
+              {errors.password && touched.password && errors.password}
+              <button
+                type="submit"
+                className="item hand"
                 disabled={isSubmitting}
-            >
+              >
                 Submit
-            </button>
+              </button>
             </form>
-        )}
+          )}
         </Formik>
+      </div>
+
     </div>
+  );
+});
 
-</div>})
-
-export default Login
+export default Login;

@@ -1,16 +1,49 @@
-.Books{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: calc(100% - 60px);
-    display: grid;
-    place-items: center;
-    .book{
-        padding: 8px;
-        margin: 8px;
-        width: 300px;
-        height: 200px;
-        border: 1px solid black;
-        border-radius: 6px;
+.Books {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: calc(100% - 60px);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  place-items: center;
+  .book {
+    padding: 8px;
+    margin: 8px;
+    width: 300px;
+    border: 1px solid black;
+    border-radius: 6px;
+    .cover {
+      padding: 8px;
+      overflow: hidden;
+      height: 300px;
+      > img {
+        width: 100%;
+        // height: 100%;
+      }
     }
+    .title {
+      padding: 16px;
+      font-size: 18px;
+    }
+    .progress {
+      padding-left: 16px;
+    }
+  }
+  .open-book {
+    .close {
+      position: absolute;
+      right: 0;
+      top: 0;
+      z-index: 1100;
+      padding: 16px;
+      cursor: pointer;
+    }
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: blanchedalmond;
+    z-index: 1000;
+  }
 }

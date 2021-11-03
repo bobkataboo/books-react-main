@@ -2,20 +2,39 @@
   display: flex;
   align-content: flex-end;
 }
+.p {
+  padding: 8px;
+}
+.p2 {
+  padding: 16px;
+}
+.p3 {
+  padding: 24px;
+}
+.p4 {
+  padding: 32px;
+}
+
 .grow {
   flex-grow: 1;
 }
 
-.hand {
-  &.hover{
+// .hand {
+//   &.hover {
+//     cursor: pointer;
+//   }
+// }
+
+:hover {
+  .hand {
     cursor: pointer;
   }
 }
 
-.input{
+.input {
   width: 100%;
   margin: 8px;
-   input {
+  input {
     width: 90%;
     height: 5px;
     padding: 8px;
