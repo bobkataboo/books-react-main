@@ -44,6 +44,25 @@ function api(endpoint:string, body?:object) {
   }).then((response) => response);
 }
 
+export function apiUpdate(endpoint:string, body?:object) {
+  const token = localStorage.get('token');
+
+  const headers = { 'content-type': 'application/json', Authorization: '' };
+
+  if (user.loggedIn) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const data = { ...body };
+
+  return axios({
+    method: 'patch',
+    data,
+    url: `${API_URL}/${endpoint ? `${endpoint}/` : ''}`,
+    headers,
+  }).then((response) => response);
+}
+
 export function logout() {
   user.setLoggedIn(false);
   window.localStorage.removeItem('token');

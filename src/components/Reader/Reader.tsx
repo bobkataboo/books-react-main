@@ -6,16 +6,20 @@ import { ReactReader } from 'react-reader';
 import { BookInterface } from '../Books/Books';
 import ReaderStore from './ReaderStore';
 
-const Reader = observer(({ book, close }:BookInterface) => {
-  const store = useMemo(() => new ReaderStore(), []);
+const Reader = observer(({
+  book, close, store, index,
+}:BookInterface) => {
+  // console.log('@@@@@ book', book);
+  const readerStore = useMemo(() => new ReaderStore({ book, store, index }),
+    [store.books[index].location]);
 
   return (
-    <div className="open-book" onKeyPress={(event) => console.log('@@@@@@ keyUp', event)}>
+    <div className="open-book">
+      {/* {console.log('@@@@@@ index, Store', index, readerStore?.location)} */}
       <div className="close" onKeyUp={() => close(false)} onClick={() => close(false)}>close</div>
-      {console.log('@@@@ boog.url', book.url)}
       <ReactReader
-        location={store.location || undefined}
-        locationChanged={store.setLocation}
+        location={readerStore.location || undefined}
+        locationChanged={(location) => readerStore.setLocation(location)}
         url={book.url}
       />
     </div>

@@ -4,27 +4,38 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { observer } from 'mobx-react';
 import api from '../../api/api';
 import Reader from '../Reader/Reader';
-import BookStore from './BookStore';
+import BooksStore from './BooksStore';
 
 export interface BookInterface {
+    index: number,
+    store: BooksStore,
     book: {
         id: number,
         title: string,
         url: string,
         coverUrl: string,
+        location: string,
     },
-    close?:any
+    close?:any,
 }
 
-const Book = observer(({ book }:BookInterface) => {
+const Book = observer(({ book, store, index }:BookInterface) => {
   const [open, setOpen] = useState(false);
 
   if (open) {
-    return <Reader book={book} close={setOpen} />;
+    return <Reader index={index} store={store} book={book} close={setOpen} />;
   }
 
   return (
-    <div onClick={() => setOpen(true)} onKeyUp={() => setOpen(true)} key={book.id} className="book">
+    <div
+      onClick={() => {
+        // console.log('!!!!!! book location onClick        ', book.location);
+        setOpen(true);
+      }}
+      onKeyUp={() => setOpen(true)}
+      key={book.id}
+      className="book"
+    >
       <div className="cover">
         <img src={book.coverUrl} alt="book cover" />
       </div>
@@ -48,7 +59,7 @@ const Book = observer(({ book }:BookInterface) => {
 });
 
 const Books = observer(() => {
-  const store = useMemo(() => new BookStore(), []);
+  const store = useMemo(() => new BooksStore(), []);
   useEffect(() => {
     api('api/books').then((response) => {
       store.setBooks(response.data);
@@ -56,7 +67,7 @@ const Books = observer(() => {
   }, [store]);
   return (
     <div className="Books">
-      {store.books.map((book) => <Book book={book} />)}
+      {store.computedBooks.map((book, i) => <Book store={store} book={book} index={i} />)}
 
     </div>
   );

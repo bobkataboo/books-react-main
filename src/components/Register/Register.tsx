@@ -29,7 +29,8 @@ const Register = () => {
     },
     validate,
     onSubmit: (values) => {
-      api('auth/register', values).then((response) => console.log('@@@@ response', response));
+      api('auth/register', values);
+      // eslint-disable-next-line no-alert
       alert(JSON.stringify(values, null, 2));
     },
   });
