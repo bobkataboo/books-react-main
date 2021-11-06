@@ -8,6 +8,12 @@ class BooksStore {
       this.books = books;
     }
 
+    @action.bound addBook(book) {
+      console.log('@@@@@@ book', book);
+      this.books.push(book.data);
+      console.log('@@@@ this.books', this.books);
+    }
+
     @computed get computedBooks() {
       return this.books;
     }

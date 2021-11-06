@@ -13,3 +13,26 @@
   // .NavBar;
   // .Login;
 }
+
+.new-book-modal{
+  position: absolute;
+  // width: 400px;
+  // height: 300px;
+  .modal-body{
+    width: 400px;
+    height: 300px;
+    background-color: white;
+    .inner{
+      padding: 32px;
+    }
+    .submit{
+      height: 50px !important;
+  }
+  }
+}
+
+.input{
+  > input {
+      height: 30px;
+  }
+}

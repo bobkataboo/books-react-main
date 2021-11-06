@@ -31,7 +31,7 @@ const BookDetails = observer(({ bookId }:any) => {
             Progress: 67%
           </div>
           <div className="description">
-            {book.body}
+            {book.description}
           </div>
         </div>
       </div>

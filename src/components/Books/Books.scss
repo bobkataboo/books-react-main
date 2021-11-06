@@ -4,31 +4,46 @@
   width: 100%;
   height: calc(100% - 60px);
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  place-items: center;
-  .book {
-    padding: 8px;
-    margin: 8px;
-    width: 300px;
-    border: 1px solid black;
-    border-radius: 6px;
-    .cover {
-      padding: 8px;
-      overflow: hidden;
-      height: 300px;
-      > img {
-        width: 100%;
-        // height: 100%;
-      }
-    }
-    .title {
-      padding: 16px;
-      font-size: 18px;
-    }
-    .progress {
-      padding-left: 16px;
+  grid-template-columns: 1fr 4fr;
+  .sidebar{
+    background-color: cadetblue;
+    opacity: 0.5;
+    .item{ 
+      display: flex;
+      justify-content: flex-end;
+      opacity: 1;
+      cursor: pointer;
     }
   }
+  .content{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
+    .book {
+      padding: 8px;
+      margin: 8px;
+      width: 300px;
+      border: 1px solid black;
+      border-radius: 6px;
+      .cover {
+        padding: 8px;
+        overflow: hidden;
+        height: 300px;
+        > img {
+          width: 100%;
+          // height: 100%;
+        }
+      }
+      .title {
+        padding: 16px;
+        font-size: 18px;
+      }
+      .progress {
+        padding-left: 16px;
+      }
+    }
+  }
+
   .open-book {
     .close {
       position: absolute;
