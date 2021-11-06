@@ -10,12 +10,14 @@ import NavBar from './components/NavBar/NavBar';
 import Login from './components/Login/Login';
 import Books from './components/Books/Books';
 import Register from './components/Register/Register';
+import BookDetails from './components/Books/BookDetails';
 
 const SwitchWrapper = observer(() => (
   <>
 
     <NavBar />
     <Switch>
+      <Route path="/books/:bookId" render={(props) => <BookDetails bookId={props.match.params.bookId} />} />
       <Route path="/login">
         <Login />
       </Route>
@@ -28,6 +30,7 @@ const SwitchWrapper = observer(() => (
       <Route path="/">
         <Books />
       </Route>
+
     </Switch>
   </>
 ));
@@ -36,7 +39,6 @@ function App() {
   return (
     <div className="App">
       <SwitchWrapper />
-
     </div>
   );
 }

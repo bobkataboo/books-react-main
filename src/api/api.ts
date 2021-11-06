@@ -27,6 +27,7 @@ export function login(endpoint:string, body?:object, history?:any) {
 
 function api(endpoint:string, body?:object) {
   const token = localStorage.get('token');
+  console.log('@@@@@ token', token);
 
   const headers = { 'content-type': 'application/json', Authorization: '' };
 
@@ -35,6 +36,8 @@ function api(endpoint:string, body?:object) {
   }
 
   const data = { ...body };
+
+  // console.log('@@@@ url', `${API_URL}/${endpoint ? `${endpoint}/` : ''}`);
 
   return axios({
     method: 'get',
@@ -63,7 +66,8 @@ export function apiUpdate(endpoint:string, body?:object) {
   }).then((response) => response);
 }
 
-export function logout() {
+export function logout(history) {
+  history.push('/login/');
   user.setLoggedIn(false);
   window.localStorage.removeItem('token');
   window.localStorage.removeItem('refreshToken');

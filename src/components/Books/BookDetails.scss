@@ -1,0 +1,61 @@
+.BookDetails {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: calc(100% - 60px);
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+    .book {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 8px;
+      margin: 8px;
+      width: 100%;
+      border: 1px solid black;
+      border-radius: 6px;
+      .cover {
+        max-height: 700px;
+        display: grid;
+        grid-template-columns: 1fr;
+        place-items: center;
+        // padding: ;
+        overflow: hidden;
+        > img {
+          width: 80%;
+          // height: 100%;
+        }
+      }
+      .title {
+        padding: 16px;
+        font-size: 18px;
+      }
+      .right{
+          padding: 10%;
+          .progress {
+            padding-bottom: 10%;
+          }
+          .description {
+            //   padding: 10%;
+              font-size: 18px;
+          }
+      }
+    }
+    .open-book {
+      .close {
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 1100;
+        padding: 16px;
+        cursor: pointer;
+      }
+      top: 0;
+      left: 0;
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      background-color: blanchedalmond;
+      z-index: 1000;
+    }
+  }

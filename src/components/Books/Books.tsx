@@ -1,7 +1,10 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/jsx-no-comment-textnodes */
 /* eslint-disable import/no-cycle */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { useEffect, useMemo, useState } from 'react';
 import { observer } from 'mobx-react';
+import { useHistory } from 'react-router-dom';
 import api from '../../api/api';
 import Reader from '../Reader/Reader';
 import BooksStore from './BooksStore';
@@ -19,8 +22,11 @@ export interface BookInterface {
     close?:any,
 }
 
-const Book = observer(({ book, store, index }:BookInterface) => {
+const Book = observer(({
+  book, store, index,
+}:BookInterface) => {
   const [open, setOpen] = useState(false);
+  const history = useHistory();
 
   if (open) {
     return <Reader index={index} store={store} book={book} close={setOpen} />;
@@ -36,6 +42,7 @@ const Book = observer(({ book, store, index }:BookInterface) => {
       key={book.id}
       className="book"
     >
+      {console.log('@@@@@ book', book)}
       <div className="cover">
         <img src={book.coverUrl} alt="book cover" />
       </div>
@@ -46,7 +53,14 @@ const Book = observer(({ book, store, index }:BookInterface) => {
         Progress: 67%
       </div>
       <div className="flex p2">
-        <div className="hand" onKeyDown={(event) => event.stopPropagation()} onClick={(event) => event.stopPropagation()}>
+        <div
+          className="hand"
+          // onKeyDown={(event) => event.stopPropagation()}
+          onClick={(event) => {
+            event.stopPropagation();
+            history.push(`/books/${book.id}`);
+          }}
+        >
           Details
         </div>
         <div className="grow" />
@@ -67,7 +81,13 @@ const Books = observer(() => {
   }, [store]);
   return (
     <div className="Books">
-      {store.computedBooks.map((book, i) => <Book store={store} book={book} index={i} />)}
+      {store.computedBooks.map((book, i) => (
+        <Book
+          store={store}
+          book={book}
+          index={i}
+        />
+      ))}
 
     </div>
   );
