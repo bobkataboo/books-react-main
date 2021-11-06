@@ -14,6 +14,11 @@ class BooksStore {
       console.log('@@@@ this.books', this.books);
     }
 
+    @action deleteBook(book) {
+      console.log('@@@@@ book', book);
+      this.books = this.books.filter((item) => book.id !== item.id);
+    }
+
     @computed get computedBooks() {
       return this.books;
     }

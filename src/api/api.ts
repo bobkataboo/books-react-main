@@ -72,6 +72,22 @@ export function post(endpoint:string, body?:object) {
   }).then((response) => response);
 }
 
+export function apiDelete(endpoint:string) {
+  const token = localStorage.get('token');
+
+  const headers = { 'content-type': 'application/json', Authorization: '' };
+
+  if (user.loggedIn) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  return axios({
+    method: 'delete',
+    url: `${API_URL}/${endpoint ? `${endpoint}/` : ''}`,
+    headers,
+  }).then((response) => response);
+}
+
 interface BookDataInterface{
   data: {items:ArrayTypeNode},
 }

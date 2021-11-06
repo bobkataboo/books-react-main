@@ -1,0 +1,116 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import { Modal } from '@mui/material';
+import { Formik } from 'formik';
+import React, { useState } from 'react';
+import { post, searchBooks } from '../../api/api';
+import { ReactComponent as AddBookSVG } from '../../img/add-book.svg';
+import user from '../../Stores/UserStore';
+
+interface NewBookInterface{
+    // eslint-disable-next-line no-unused-vars
+    addBook: (book:any) => void,
+  }
+
+const NewBook = ({ addBook }:NewBookInterface) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <AddBookSVG />
+      <div onClick={() => setOpen(true)}>Add book..</div>
+      <Modal
+        className="new-book-modal center"
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <div className="modal-body">
+          <div className="inner">
+            <Formik
+              initialValues={{ bookTitle: '', bookUrl: '' }}
+              onSubmit={(values, { setSubmitting }) => {
+                searchBooks(values.bookTitle).then((data) => {
+                  if (data) {
+                    const { items } = data.data;
+                    const item = items[0];
+                    if (!item) return;
+                    const { volumeInfo } = item;
+                    const {
+                      title, subtitle, authors, description, imageLinks,
+                    } = volumeInfo;
+                    post('api/books', {
+                      title,
+                      subtitle,
+                      author: authors[0],
+                      url: values.bookUrl,
+                      user: user.id,
+                      description,
+                      coverUrl: imageLinks.thumbnail,
+                    }).then((book) => {
+                      addBook(book);
+                    });
+                  }
+                });
+                setTimeout(() => {
+                  // alert(JSON.stringify(values, null, 2));
+                  setSubmitting(false);
+                }, 400);
+              }}
+            >
+              {({
+                values,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                isSubmitting,
+                /* and other goodies */
+              }) => (
+                <form onSubmit={handleSubmit}>
+                  <div className="input p">
+                    <input
+                        // eslint-disable-next-line jsx-a11y/no-autofocus
+                      autoFocus
+                      className="p"
+                      type="text"
+                      name="bookTitle"
+                      placeholder="Book Title"
+                      onChange={handleChange}
+                        // onChange={(event) => {
+                        //   handleChange(event);
+                        // }}
+                      onBlur={handleBlur}
+                      value={values.bookTitle}
+                    />
+                  </div>
+                  <div className="input p">
+                    <input
+                      className="p"
+                      type="text"
+                      name="bookUrl"
+                      placeholder="Book Url"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.bookUrl}
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    className="submit item hand"
+                    disabled={isSubmitting}
+                  >
+                    Submit
+                  </button>
+                </form>
+              )}
+            </Formik>
+          </div>
+
+        </div>
+      </Modal>
+    </>
+  );
+};
+
+export default NewBook;

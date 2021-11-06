@@ -4,9 +4,20 @@
   left: 0;
   width: 100%;
   height: 60px;
-  background-color: #5f9ea0;
+  background-color: #117D95;
+  .links-container{
+    display: flex;
+    padding-right: 10%
+  };
   .nav-btn {
+    font-weight: 400;
+    font-size: 18px;
+    color: white;
     cursor: pointer;
     padding: 16px;
+    > a {
+      color: white;
+      text-decoration: none;
+    }
   }
 }
