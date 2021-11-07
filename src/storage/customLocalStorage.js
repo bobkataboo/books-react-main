@@ -40,4 +40,5 @@ function storage() {
   }
 }
 
-module.exports = storage();
+// module.exports = storage();
+export default storage;
