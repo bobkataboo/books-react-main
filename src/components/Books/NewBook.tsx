@@ -17,8 +17,10 @@ const NewBook = ({ addBook }:NewBookInterface) => {
 
   return (
     <>
-      <AddBookSVG />
-      <div onClick={() => setOpen(true)}>Add book..</div>
+      <div className="item" onClick={() => setOpen(true)}>
+        <AddBookSVG />
+        <div>Add book..</div>
+      </div>
       <Modal
         className="new-book-modal center"
         open={open}

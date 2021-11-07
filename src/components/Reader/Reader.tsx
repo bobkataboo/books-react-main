@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable import/no-cycle */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import { Modal } from '@mui/material';
+import { Button, Modal } from '@mui/material';
 import { observer } from 'mobx-react';
 import React, { useMemo } from 'react';
 import { ReactReader } from 'react-reader';
@@ -23,7 +23,10 @@ const Reader = observer(({
       aria-describedby="modal-modal-description"
     >
       <div className="open-book">
-        <div
+        <Button
+          id="basic-button"
+          aria-controls="basic-menu"
+          aria-haspopup="true"
           className="close"
           onKeyUp={() => close(false)}
           onClick={(event) => {
@@ -33,7 +36,7 @@ const Reader = observer(({
         >
           close
 
-        </div>
+        </Button>
         <ReactReader
           location={readerStore.location || undefined}
           locationChanged={(location) => readerStore.setLocation(location)}

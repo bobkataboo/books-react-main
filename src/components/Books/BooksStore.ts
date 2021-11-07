@@ -36,6 +36,20 @@ class BooksStore {
       });
     }
 
+    @action.bound toggleFinishBook(book) {
+      const body = {
+        finished: !book.finished,
+      };
+      apiUpdate(`api/books/${book.id}`, body).then(({ data }) => {
+        for (const i in this.books) {
+          const oldBook = this.books[i];
+          if (oldBook.id === data.id) {
+            this.books[i] = data;
+          }
+        }
+      });
+    }
+
     @action setBooks(books) {
       this.books = books;
     }

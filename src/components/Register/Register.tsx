@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import api from '../../api/api';
+import { post } from '../../api/api';
 
 const Register = () => {
   const validate = (values) => {
@@ -29,7 +29,7 @@ const Register = () => {
     },
     validate,
     onSubmit: (values) => {
-      api('auth/register', values);
+      post('auth/register', values);
       // eslint-disable-next-line no-alert
       alert(JSON.stringify(values, null, 2));
     },

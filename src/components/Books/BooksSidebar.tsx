@@ -17,9 +17,7 @@ const BooksSidebar = observer(({ addBook }) => {
 
   return (
     <div className="sidebar">
-      <div className="item">
-        <NewBook addBook={addBook} />
-      </div>
+      <NewBook addBook={addBook} />
       <div className={`item${location.pathname === '/books/unread' ? ' active' : ''}`} onMouseUp={() => history.push('/books/unread')}>
         <UnreadSVG />
         <span>Unread books</span>

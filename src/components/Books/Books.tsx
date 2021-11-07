@@ -23,6 +23,7 @@ export interface BookInterface {
         coverUrl: string,
         location: string,
         favourite: boolean,
+        finished: boolean,
     },
     close?:any,
     open?: boolean,

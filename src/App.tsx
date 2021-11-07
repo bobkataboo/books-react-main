@@ -17,9 +17,6 @@ const SwitchWrapper = observer(() => (
 
     <NavBar />
     <Switch>
-      <Route path="/books">
-        <Books />
-      </Route>
       <Route path="/books/unread">
         <Books />
       </Route>
@@ -30,6 +27,9 @@ const SwitchWrapper = observer(() => (
         <Books />
       </Route>
       <Route path="/books/:bookId" render={(props) => <BookDetails bookId={props.match.params.bookId} />} />
+      <Route path="/books">
+        <Books />
+      </Route>
       <Route path="/login">
         <Login />
       </Route>

@@ -31,7 +31,7 @@ const Book = observer(({
       }}
       onKeyUp={() => setOpen(true)}
       key={book.id}
-      className="book"
+      className="book hand"
     >
       <Reader index={index} store={store} book={book} close={setOpen} open={open} />
       <div className="cover">
@@ -101,6 +101,14 @@ const Book = observer(({
             }}
             >
               Delete
+
+            </MenuItem>
+            <MenuItem onClick={() => {
+              handleClose();
+              store.toggleFinishBook(book);
+            }}
+            >
+              {book.finished ? 'Remove from finished' : 'Add to finished'}
 
             </MenuItem>
           </Menu>

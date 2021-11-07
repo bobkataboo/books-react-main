@@ -4,7 +4,7 @@ import { parseJwt } from '../functions/functions';
 import localStorage from '../storage/storage';
 import user from '../Stores/UserStore';
 
-const API_URL = 'http://127.0.0.1:8000';
+const API_URL = 'https://bo-ooks.herokuapp.com';
 
 export function login(endpoint:string, body?:object, history?:any) {
   const initialData = {
