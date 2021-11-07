@@ -1,4 +1,5 @@
 import { action, observable } from 'mobx';
+import BookDetailsStore from '../Books/BookDetailsStore';
 // import { apiUpdate } from '../../api/api';
 import BooksStore from '../Books/BooksStore';
 
@@ -9,10 +10,15 @@ class ReaderStore {
 
   booksStore: BooksStore
 
-  constructor({ book, store, index }) {
+  bookDetailsStore: BookDetailsStore
+
+  constructor({
+    book, store, index, bookDetailsStore,
+  }) {
     this.bookId = book.id;
     this.location = book.location;
     this.booksStore = store;
+    this.bookDetailsStore = bookDetailsStore;
     this.index = index;
   }
 
@@ -20,7 +26,12 @@ class ReaderStore {
 
   @action.bound setLocation(location:string | number) {
     this.location = location;
-    this.booksStore.updateBook(this.bookId, location, this.index);
+    if (this.booksStore) {
+      this.booksStore.updateBook(this.bookId, location, this.index);
+    }
+    if (this.bookDetailsStore) {
+      this.bookDetailsStore.updateBook(this.bookId, location);
+    }
   }
 }
 

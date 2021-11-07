@@ -39,6 +39,7 @@
       }
     }
   }
+
   .content{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -65,6 +66,32 @@
       .progress {
         padding-left: 16px;
       }
+    }
+  }
+
+  @media screen and (max-width: 850px) {
+    grid-template-columns: 40px 1fr;
+    .content{
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .content{
+      grid-template-columns: 1fr;
+    }
+    .sidebar{
+     .item{
+       > div, span  {
+         display: none ;
+       }
+       > svg {
+         width: 30px;
+         height: 30px;
+       }
+     }
+      // display: none;
+      width: 50px;
     }
   }
 

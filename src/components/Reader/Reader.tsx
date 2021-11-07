@@ -5,14 +5,34 @@ import { Button, Modal } from '@mui/material';
 import { observer } from 'mobx-react';
 import React, { useMemo } from 'react';
 import { ReactReader } from 'react-reader';
-import { BookInterface } from '../Books/Books';
+import BookDetailsStore from '../Books/BookDetailsStore';
+import BooksStore from '../Books/BooksStore';
 import ReaderStore from './ReaderStore';
 
+ interface ReaderInterface {
+  index: number,
+  store?: BooksStore,
+  bookDetailsStore?: BookDetailsStore,
+  book: {
+      id: number,
+      title: string,
+      url: string,
+      coverUrl: string,
+      location: string,
+      favourite: boolean,
+      finished: boolean,
+  },
+  close?:any,
+  open?: boolean,
+}
+
 const Reader = observer(({
-  book, close, store, index, open,
-}:BookInterface) => {
-  const readerStore = useMemo(() => new ReaderStore({ book, store, index }),
-    [store.books[index].location]);
+  book, store, index, close, open, bookDetailsStore,
+}:ReaderInterface) => {
+  const readerStore = useMemo(() => new ReaderStore({
+    book, store, index, bookDetailsStore,
+  }),
+  []);
 
   return (
     <Modal
