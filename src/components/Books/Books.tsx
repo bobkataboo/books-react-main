@@ -7,6 +7,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { observer } from 'mobx-react';
 import { Scrollbars } from 'rc-scrollbars';
+import { useLocation } from 'react-router-dom';
 import api from '../../api/api';
 import BooksStore from './BooksStore';
 import BooksSidebar from './BooksSidebar';
@@ -21,6 +22,7 @@ export interface BookInterface {
         url: string,
         coverUrl: string,
         location: string,
+        favourite: boolean,
     },
     close?:any,
     open?: boolean,
@@ -33,12 +35,34 @@ const Books = observer(() => {
       store.setBooks(response.data);
     });
   }, [store]);
+  const location = useLocation();
   return (
     <div className="Books">
       <BooksSidebar addBook={store.addBook} />
       <Scrollbars>
         <div className="content">
-          {store.computedBooks.map((book, i) => (
+          {location.pathname === '/books' && store.computedBooks.map((book, i) => (
+            <Book
+              store={store}
+              book={book}
+              index={i}
+            />
+          ))}
+          {location.pathname === '/books/finished' && store.finishedBooks.map((book, i) => (
+            <Book
+              store={store}
+              book={book}
+              index={i}
+            />
+          ))}
+          {location.pathname === '/books/favourite' && store.favouriteBooks.map((book, i) => (
+            <Book
+              store={store}
+              book={book}
+              index={i}
+            />
+          ))}
+          {location.pathname === '/books/unread' && store.unreadBooks.map((book, i) => (
             <Book
               store={store}
               book={book}

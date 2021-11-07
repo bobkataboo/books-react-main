@@ -11,7 +11,6 @@ import ReaderStore from './ReaderStore';
 const Reader = observer(({
   book, close, store, index, open,
 }:BookInterface) => {
-  // console.log('@@@@@ book', book);
   const readerStore = useMemo(() => new ReaderStore({ book, store, index }),
     [store.books[index].location]);
 

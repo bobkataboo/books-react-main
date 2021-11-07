@@ -7,7 +7,6 @@ const BookDetails = observer(({ bookId }:any) => {
   useEffect(() => {
     api(`api/books/${bookId}`).then(({ data }) => {
       setBook(data);
-      console.log('@@@@ data', data);
     });
   }, []);
 

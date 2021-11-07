@@ -7,6 +7,8 @@ import { useHistory } from 'react-router-dom';
 import { apiDelete } from '../../api/api';
 import Reader from '../Reader/Reader';
 import { BookInterface } from './Books';
+import { ReactComponent as StarredBookSVG } from '../../img/book-starred.svg';
+import { ReactComponent as UnstarredBookSVG } from '../../img/book-unstarred.svg';
 
 const Book = observer(({
   book, store, index,
@@ -50,7 +52,6 @@ const Book = observer(({
         >
           Read
         </Button>
-        <div className="grow" />
         <Button
           id="basic-button"
           aria-controls="basic-menu"
@@ -63,7 +64,17 @@ const Book = observer(({
         >
           Details
         </Button>
+        <div className="grow" />
         <div onClick={(event) => event.stopPropagation()}>
+          <Button
+            style={{ minWidth: 30 }}
+            id="basic-button"
+            aria-controls="basic-menu"
+            aria-haspopup="true"
+            onMouseUp={() => store.toggleFavouriteBook(book)}
+          >
+            {book.favourite ? <StarredBookSVG /> : <UnstarredBookSVG />}
+          </Button>
           <Button
             style={{ minWidth: 30 }}
             id="basic-button"

@@ -27,6 +27,9 @@
       cursor: pointer;
       color: white;
       font-weight: 400;
+      &.active{
+        background-color: rgb(118, 139, 28);
+      }
       &:hover{
         background-color: rgb(118, 139, 28);
         // opacity: 0.53;

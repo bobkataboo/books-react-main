@@ -11,7 +11,7 @@ const NavBar = observer(() => {
 
   return (
     <div className="NavBar flex">
-      <div style={{ paddingLeft: '10%' }} className="center">
+      <div onMouseUp={() => history.push('/books')} style={{ paddingLeft: '10%' }} className="center hand">
         <LogoSVG />
       </div>
 
