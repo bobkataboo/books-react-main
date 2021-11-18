@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { login } from '../../api/api';
+import { ReactComponent as BookSVG } from '../../img/book-blue.svg';
 
 //  interface errors{
 //      email?: string;
@@ -15,7 +16,9 @@ const Login = observer(() => {
 
   return (
     <div className="Login v">
-      <div className="login-form">
+      <div className="image-container" />
+      <div className="login-form center">
+        <BookSVG />
         <Formik
           initialValues={{ username: '', password: '' }}
           onSubmit={(values, { setSubmitting }) => {
@@ -61,13 +64,16 @@ const Login = observer(() => {
                 />
               </div>
               {errors.password && touched.password && errors.password}
-              <button
-                type="submit"
-                className="item hand"
-                disabled={isSubmitting}
-              >
-                Submit
-              </button>
+              <div>
+                <button
+                  type="submit"
+                  className="item hand submit center"
+                  disabled={isSubmitting}
+                >
+                  Sign in
+                </button>
+              </div>
+
             </form>
           )}
         </Formik>

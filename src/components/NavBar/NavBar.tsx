@@ -2,6 +2,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { Link, useHistory } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { logout } from '../../api/api';
 import { ReactComponent as LogoSVG } from '../../img/logo.svg';
 import user from '../../Stores/UserStore';
@@ -20,14 +21,21 @@ const NavBar = observer(() => {
         {user.isLoggedIn ? (
           <>
             <div className="nav-btn">
-              <Link to="/books">
+              <motion.div
+                whileHover={{ fontSize: '23px', fontWeight: 500 }}
+                onClick={() => history.push('/books')}
+              >
                 Books
-              </Link>
+              </motion.div>
             </div>
             <div className="nav-btn">
-              <div onClick={() => logout(history)} onKeyUp={logout}>
+              <motion.div
+                whileHover={{ fontSize: '23px', fontWeight: 500 }}
+                onClick={() => logout(history)}
+                onKeyUp={logout}
+              >
                 Logout
-              </div>
+              </motion.div>
             </div>
           </>
         ) : (

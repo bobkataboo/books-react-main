@@ -3,6 +3,12 @@ import BookDetailsStore from '../Books/BookDetailsStore';
 // import { apiUpdate } from '../../api/api';
 import BooksStore from '../Books/BooksStore';
 
+interface SetLocationInterface{
+
+  base: string
+  startCfi: string
+}
+
 class ReaderStore {
   bookId: number
 
@@ -11,6 +17,10 @@ class ReaderStore {
   booksStore: BooksStore
 
   bookDetailsStore: BookDetailsStore
+
+  // startCfi:
+
+  // location: string|number
 
   constructor({
     book, store, index, bookDetailsStore,
@@ -22,16 +32,18 @@ class ReaderStore {
     this.index = index;
   }
 
-  @observable location:string|number
+  @observable location:string
 
-  @action.bound setLocation(location:string | number) {
-    this.location = location;
+  @action.bound setLocation(location):SetLocationInterface {
+    console.log('@@@@@ location', location);
+    this.location = location.startCfi;
     if (this.booksStore) {
-      this.booksStore.updateBook(this.bookId, location, this.index);
+      this.booksStore.updateBook(this.bookId, this.location, this.index);
     }
     if (this.bookDetailsStore) {
-      this.bookDetailsStore.updateBook(this.bookId, location);
+      this.bookDetailsStore.updateBook(this.bookId, this.location);
     }
+    return null;
   }
 }
 

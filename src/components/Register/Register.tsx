@@ -1,6 +1,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import { post } from '../../api/api';
+import { ReactComponent as BookSVG } from '../../img/book-blue.svg';
 
 const Register = () => {
   const validate = (values) => {
@@ -36,7 +37,9 @@ const Register = () => {
   });
   return (
     <div className="Register">
-      <div className="register-form">
+      <div className="image-container" />
+      <div className="register-form center">
+        <BookSVG />
         <form onSubmit={formik.handleSubmit}>
           {/* <label htmlFor="email">Email Address</label> */}
           <div className="input p">
@@ -79,7 +82,7 @@ const Register = () => {
               value={formik.values.password2}
             />
           </div>
-          <button className="item hand" type="submit">Submit</button>
+          <button className="item hand submit" type="submit">Submit</button>
         </form>
 
       </div>

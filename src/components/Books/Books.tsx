@@ -7,7 +7,6 @@
 import React, { useEffect, useMemo } from 'react';
 import { observer } from 'mobx-react';
 import { Scrollbars } from 'rc-scrollbars';
-import { useLocation } from 'react-router-dom';
 import api from '../../api/api';
 import BooksStore from './BooksStore';
 import BooksSidebar from './BooksSidebar';
@@ -27,26 +26,42 @@ export interface BookInterface {
     },
     close?:any,
     open?: boolean,
+    isSelected?: boolean,
+    bookId?: string
 }
 
-const Books = observer(() => {
+interface IProps{
+  bookId?: string
+}
+
+const Books = observer(({ bookId }:IProps) => {
   const store = useMemo(() => new BooksStore(), []);
   useEffect(() => {
     api('api/books').then((response) => {
       store.setBooks(response.data);
     });
   }, [store]);
-  const location = useLocation();
+  // const location = useLocation();
   return (
     <div className="Books">
       <BooksSidebar addBook={store.addBook} />
       <Scrollbars>
         <div className="content">
-          {location.pathname === '/books' && store.computedBooks.map((book, i) => (
+          {store.computedBooks.map((book, i) => (
+            <Book
+              bookId={bookId}
+              store={store}
+              book={book}
+              index={i}
+              isSelected={bookId === `${book.id}`}
+            />
+          ))}
+          {/* {location.pathname === '/books' && store.computedBooks.map((book, i) => (
             <Book
               store={store}
               book={book}
               index={i}
+              isSelected={bookId === book.id}
             />
           ))}
           {location.pathname === '/books/finished' && store.finishedBooks.map((book, i) => (
@@ -69,7 +84,7 @@ const Books = observer(() => {
               book={book}
               index={i}
             />
-          ))}
+          ))} */}
         </div>
       </Scrollbars>
     </div>
