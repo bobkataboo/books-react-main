@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Formik } from 'formik';
 import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { motion, MotionConfig } from 'framer-motion';
+import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
 import { login } from '../../api/api';
 import book1 from '../../img/book.png';
 import book2 from '../../img/book2.png';
@@ -60,9 +60,9 @@ const Login = observer(() => {
       <div className="image-container">
         <MotionConfig transition={{ duration: 0.7 }}>
 
-          {images.map((image, index) => (
-            // <AnimatePresence initial={false}>
-            index === selectedImage && (
+          <AnimatePresence initial={false}>
+            {images.map((image, index) => (
+              index === selectedImage && (
               <motion.img
                 className="image123"
                   // eslint-disable-next-line react/no-array-index-key
@@ -77,12 +77,11 @@ const Login = observer(() => {
                 variants={variants}
                 src={image}
                 alt="src"
-                // variants={variants}
               />
-            )
+              )
 
-            // </AnimatePresence>
-          ))}
+            ))}
+          </AnimatePresence>
 
         </MotionConfig>
 
