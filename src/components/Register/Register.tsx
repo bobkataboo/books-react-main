@@ -2,6 +2,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 import { post } from '../../api/api';
 import { ReactComponent as BookSVG } from '../../img/book-blue.svg';
+import VerticalImagesSlideshow from '../Shared/VerticalImagesSlideshow';
 
 const Register = () => {
   const validate = (values) => {
@@ -37,7 +38,7 @@ const Register = () => {
   });
   return (
     <div className="Register">
-      <div className="image-container" />
+      <VerticalImagesSlideshow />
       <div className="register-form center">
         <BookSVG />
         <form onSubmit={formik.handleSubmit}>
