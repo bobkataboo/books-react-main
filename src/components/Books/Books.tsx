@@ -1,16 +1,19 @@
+// @ts-nocheck
 /* eslint-disable max-len */
 /* eslint-disable global-require */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/jsx-no-comment-textnodes */
 /* eslint-disable import/no-cycle */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { observer } from 'mobx-react';
 import { Scrollbars } from 'rc-scrollbars';
+import { AnimatePresence, AnimateSharedLayout } from 'framer-motion';
 import api from '../../api/api';
 import BooksStore from './BooksStore';
 import BooksSidebar from './BooksSidebar';
 import Book from './Book';
+import BookDetails from './BookDetails';
 
 export interface BookInterface {
     index: number,
@@ -36,6 +39,7 @@ interface IProps{
 
 const Books = observer(({ bookId }:IProps) => {
   const store = useMemo(() => new BooksStore(), []);
+  const [selectedIndex, setIndex] = useState(0);
   useEffect(() => {
     api('api/books').then((response) => {
       store.setBooks(response.data);
@@ -47,15 +51,24 @@ const Books = observer(({ bookId }:IProps) => {
       <BooksSidebar addBook={store.addBook} />
       <Scrollbars>
         <div className="content">
-          {store.computedBooks.map((book, i) => (
-            <Book
-              bookId={bookId}
-              store={store}
-              book={book}
-              index={i}
-              isSelected={bookId === `${book.id}`}
-            />
-          ))}
+          <AnimateSharedLayout type="crossfade">
+            {store.computedBooks.map((book, i) => (
+              <Book
+                setIndex={setIndex}
+                bookId={bookId}
+                store={store}
+                book={book}
+                index={i}
+                isSelected={bookId === `${book.id}`}
+              />
+            ))}
+            <AnimatePresence>
+              {bookId && (
+                <BookDetails book={store.books[selectedIndex]} />
+              )}
+            </AnimatePresence>
+          </AnimateSharedLayout>
+
           {/* {location.pathname === '/books' && store.computedBooks.map((book, i) => (
             <Book
               store={store}

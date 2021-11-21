@@ -61,6 +61,20 @@ const Reader = observer(({
           location={readerStore.location || undefined}
           locationChanged={(location) => readerStore.setLocation(location)}
           url={book.url}
+          getRendition={(rendition) => {
+            // eslint-disable-next-line camelcase
+            const spine_get = rendition.book.spine.get.bind(rendition.book.spine);
+            // eslint-disable-next-line no-param-reassign
+            rendition.book.spine.get = function (target:string) {
+              let t = spine_get(target);
+              while ((t == null) && target.startsWith('../')) {
+                // eslint-disable-next-line no-param-reassign
+                target = target.substring(3);
+                t = spine_get(target);
+              }
+              return t;
+            };
+          }}
         />
       </div>
     </Modal>

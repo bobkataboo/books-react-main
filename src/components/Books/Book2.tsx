@@ -1,5 +1,5 @@
-// @ts-nocheck
 /* eslint-disable max-len */
+// @ts-nocheck
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -7,7 +7,7 @@ import { Button, Menu, MenuItem } from '@mui/material';
 import { observer } from 'mobx-react';
 import React, { useState, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { AnimateSharedLayout, motion, useMotionValue } from 'framer-motion';
+import { motion, useMotionValue } from 'framer-motion';
 import { padding } from '@mui/system';
 import { apiDelete } from '../../api/api';
 import Reader from '../Reader/Reader';
@@ -39,7 +39,7 @@ const BookDescription = observer(() => (
 ));
 
 const BookActions = observer(({
-  book, store, menuOpen, handleClick, history, anchorEl, handleClose, setIndex, index,
+  book, store, menuOpen, handleClick, history, anchorEl, handleClose,
 }) => {
   const bo = 'cool';
   console.log('@@@@ bo', bo);
@@ -65,7 +65,6 @@ const BookActions = observer(({
         }}
         className="btn"
         onClick={(event) => {
-          setIndex(index);
           event.stopPropagation();
           console.log('@@@@@@@ book.id', book.id);
           history.push(`/books/${book.id}`);
@@ -138,8 +137,6 @@ const BookContent = observer(({
   history,
   anchorEl,
   handleClose,
-  setIndex,
-  index,
 }) => (
   <>
 
@@ -148,14 +145,14 @@ const BookContent = observer(({
       className="book-content"
   // style={{ zIndex, y }}
   // layoutTransition={isSelected ? openSpring : closeSpring}
-      // drag={isSelected ? 'y' : false}
+      drag={isSelected ? 'y' : false}
       onDrag={checkSwipeToDismiss}
       onUpdate={checkZIndex}
-      // style={isSelected ? { display: 'flex', padding: 32, width: '100%' } : null}
+      style={isSelected ? { display: 'flex', padding: 32, width: '100%' } : null}
     >
       <motion.div>
-        <motion.div style={{ height: 320 }} className="cover center">
-          <motion.img style={{ height: 320 }} src={book.coverUrl} alt="book cover" />
+        <motion.div style={isSelected ? { height: 450, width: 324 } : { height: 320 }} className="cover center">
+          <motion.img style={isSelected ? { height: 450, width: 324 } : { height: 320 }} src={book.coverUrl} alt="book cover" />
         </motion.div>
         <div className="title">
           {book.title}
@@ -164,8 +161,6 @@ const BookContent = observer(({
        Progress: 67%
         </div> */}
         <BookActions
-          index={index}
-          setIndex={setIndex}
           book={book}
           store={store}
           menuOpen={menuOpen}
@@ -175,21 +170,21 @@ const BookContent = observer(({
           handleClose={handleClose}
         />
       </motion.div>
-      {/* {isSelected && (
+      {isSelected && (
         <>
           <motion.div className="grow" />
           <motion.div style={{ width: 400, height: '100%' }}>
             <BookDescription />
           </motion.div>
         </>
-      )} */}
+      )}
     </motion.div>
 
   </>
 ));
 
-const Book = observer(({
-  book, store, index, isSelected, bookId, setIndex,
+const Book2 = observer(({
+  book, store, index, isSelected, bookId,
 }:BookInterface) => {
   const history = useHistory();
   const y = useMotionValue(0);
@@ -225,23 +220,29 @@ const Book = observer(({
 
   return (
     <div className="book">
-
       <Overlay isSelected={isSelected} history={history} />
       <motion.div
-        layoutId={book.id}
-          // style={}
+        layout
+        style={isSelected ? {
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          right: 0,
+          bottom: 0,
+          margin: 'auto',
+          zIndex: '10',
+          width: 900,
+        } : null}
         onClick={() => {
           setOpen(true);
         }}
         onKeyUp={() => setOpen(true)}
         key={book.id}
-        className="book-content-container hand"
+        className={`book-content-container hand${isSelected ? ' open' : ''}`}
       >
 
         <Reader index={index} store={store} book={book} close={setOpen} open={open} />
         <BookContent
-          index={index}
-          setIndex={setIndex}
           checkSwipeToDismiss={checkSwipeToDismiss}
           checkZIndex={checkZIndex}
           isSelected={isSelected}
@@ -259,4 +260,4 @@ const Book = observer(({
   );
 });
 
-export default Book;
+export default Book2;
