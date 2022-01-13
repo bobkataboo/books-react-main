@@ -37,7 +37,7 @@ const SwitchWrapper = observer(({ location }) => (
 function App() {
   const location = useLocation();
   return (
-    <div className="App">
+    <div id="App" className="App">
       <SwitchWrapper location={location} />
     </div>
   );

@@ -7,6 +7,7 @@ import { ReactComponent as CheckMarkSVG } from '../../img/check-mark.svg';
 import { ReactComponent as UnreadSVG } from '../../img/unread.svg';
 import { ReactComponent as StarSVG } from '../../img/star.svg';
 import NewBook from './NewBook';
+// import NewBookModal from './NewBookModal';
 
 // const items = [
 //   {},

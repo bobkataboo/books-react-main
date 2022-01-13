@@ -15,10 +15,13 @@
 }
 
 .read-book-modal{
+  background-color: white;
   position: absolute;
   // width: 100vw;
   // height: 100vw;
+  // padding: 5%;
   .open-book{
+    background-color: white;
     width: 100vw;
     height: 100vh;
   }
@@ -26,6 +29,18 @@
     position: absolute;
     top: 20px;
     right: 20px;
+    z-index: 3;
+  }
+  .left{
+    position: absolute;
+    top: 50%;
+    left: 2%;
+    z-index: 3;
+  }
+  .right{
+    position: absolute;
+    top: 50%;
+    right: 2%;
     z-index: 3;
   }
 }

@@ -9,6 +9,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { observer } from 'mobx-react';
 import { Scrollbars } from 'rc-scrollbars';
 import { AnimatePresence, AnimateSharedLayout } from 'framer-motion';
+import { useLocation } from 'react-router-dom';
 import api from '../../api/api';
 import BooksStore from './BooksStore';
 import BooksSidebar from './BooksSidebar';
@@ -45,14 +46,45 @@ const Books = observer(({ bookId }:IProps) => {
       store.setBooks(response.data);
     });
   }, [store]);
-  // const location = useLocation();
+  const location = useLocation();
   return (
     <div className="Books">
       <BooksSidebar addBook={store.addBook} />
       <Scrollbars>
         <div className="content">
           <AnimateSharedLayout type="crossfade">
-            {store.computedBooks.map((book, i) => (
+            {location.pathname === '/books' && store.computedBooks.map((book, i) => (
+              <Book
+                setIndex={setIndex}
+                bookId={bookId}
+                store={store}
+                book={book}
+                index={i}
+                isSelected={bookId === `${book.id}`}
+              />
+            ))}
+            {location.pathname === '/books/finished' && store.finishedBooks.map((book, i) => (
+              <Book
+                setIndex={setIndex}
+                bookId={bookId}
+                store={store}
+                book={book}
+                index={i}
+                isSelected={bookId === `${book.id}`}
+              />
+            ))}
+            {console.log('@@@@@ favourite books', store.favouriteBooks)}
+            {location.pathname === '/books/favourite' && store.favouriteBooks.map((book, i) => (
+              <Book
+                setIndex={setIndex}
+                bookId={bookId}
+                store={store}
+                book={book}
+                index={i}
+                isSelected={bookId === `${book.id}`}
+              />
+            ))}
+            {location.pathname === '/books/unread' && store.unreadBooks.map((book, i) => (
               <Book
                 setIndex={setIndex}
                 bookId={bookId}
@@ -69,35 +101,6 @@ const Books = observer(({ bookId }:IProps) => {
             </AnimatePresence>
           </AnimateSharedLayout>
 
-          {/* {location.pathname === '/books' && store.computedBooks.map((book, i) => (
-            <Book
-              store={store}
-              book={book}
-              index={i}
-              isSelected={bookId === book.id}
-            />
-          ))}
-          {location.pathname === '/books/finished' && store.finishedBooks.map((book, i) => (
-            <Book
-              store={store}
-              book={book}
-              index={i}
-            />
-          ))}
-          {location.pathname === '/books/favourite' && store.favouriteBooks.map((book, i) => (
-            <Book
-              store={store}
-              book={book}
-              index={i}
-            />
-          ))}
-          {location.pathname === '/books/unread' && store.unreadBooks.map((book, i) => (
-            <Book
-              store={store}
-              book={book}
-              index={i}
-            />
-          ))} */}
         </div>
       </Scrollbars>
     </div>

@@ -35,7 +35,6 @@ class ReaderStore {
   @observable location:string
 
   @action.bound setLocation(location):SetLocationInterface {
-    console.log('@@@@@ location', location);
     this.location = location.startCfi;
     if (this.booksStore) {
       this.booksStore.updateBook(this.bookId, this.location, this.index);

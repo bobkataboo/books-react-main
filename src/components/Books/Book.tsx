@@ -14,23 +14,11 @@ import Reader from '../Reader/Reader';
 import { BookInterface } from './Books';
 import { ReactComponent as StarredBookSVG } from '../../img/book-starred.svg';
 import { ReactComponent as UnstarredBookSVG } from '../../img/book-unstarred.svg';
+import Overlay from '../Shared/Overlay';
 
 const dismissDistance = 150;
 const openSpring = { type: 'spring', stiffness: 100, damping: 30 };
 const closeSpring = { type: 'spring', stiffness: 1000, damping: 1000 };
-
-const Overlay = ({ isSelected, history }:{isSelected: boolean, history: any}) => (
-  <motion.div
-    initial={false}
-    animate={{ opacity: isSelected ? 1 : 0 }}
-    transition={{ duration: 0.3 }}
-    style={{ pointerEvents: isSelected ? 'auto' : 'none' }}
-    className="overlay"
-    onClick={(event) => event.stopPropagation()}
-  >
-    <Link to="/books" />
-  </motion.div>
-);
 
 const BookDescription = observer(() => (
   <div>
@@ -42,7 +30,7 @@ const BookActions = observer(({
   book, store, menuOpen, handleClick, history, anchorEl, handleClose, setIndex, index,
 }) => {
   const bo = 'cool';
-  console.log('@@@@ bo', bo);
+  // console.log('@@@@ bo', bo);
   return (
     <div className="center-flex p ps3 pb3">
       <motion.div
@@ -67,7 +55,7 @@ const BookActions = observer(({
         onClick={(event) => {
           setIndex(index);
           event.stopPropagation();
-          console.log('@@@@@@@ book.id', book.id);
+          // console.log('@@@@@@@ book.id', book.id);
           history.push(`/books/${book.id}`);
         }}
       >
@@ -226,7 +214,7 @@ const Book = observer(({
   return (
     <div className="book">
 
-      <Overlay isSelected={isSelected} history={history} />
+      <Overlay isSelected={isSelected} />
       <motion.div
         layoutId={book.id}
           // style={}

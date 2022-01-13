@@ -1,23 +1,31 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+// import { Modal } from '@mui/material';
+// import { Formik } from 'formik';
 import { Modal } from '@mui/material';
 import { Formik } from 'formik';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { post, searchBooks } from '../../api/api';
+// import { post, searchBooks } from '../../api/api';
 import { ReactComponent as AddBookSVG } from '../../img/add-book.svg';
 import user from '../../Stores/UserStore';
+import Overlay from '../Shared/Overlay';
 
-interface NewBookInterface{
-    // eslint-disable-next-line no-unused-vars
-    addBook: (book:any) => void,
-  }
+// interface NewBookInterface{
+//     // eslint-disable-next-line no-unused-vars
+//     addBook: (book:any) => void,
+//   }
 
-const NewBook = ({ addBook }:NewBookInterface) => {
+const NewBookModal = () => {
   const [open, setOpen] = useState(false);
+  const close = useCallback(() => {
+    setOpen(false);
+  }, []);
 
   return (
     <>
       <div className="item" onClick={() => setOpen(true)}>
+        <Overlay isSelected={open} redirect={false} handleClose={close} />
         <AddBookSVG />
         <div>Add book..</div>
       </div>
@@ -50,13 +58,12 @@ const NewBook = ({ addBook }:NewBookInterface) => {
                       user: user.id,
                       description,
                       coverUrl: imageLinks.thumbnail,
-                    }).then((book) => {
-                      addBook(book);
+                    }).then(() => {
+                      // addBook(book);
                     });
                   }
                 });
                 setTimeout(() => {
-                  // alert(JSON.stringify(values, null, 2));
                   setSubmitting(false);
                 }, 400);
               }}
@@ -78,9 +85,6 @@ const NewBook = ({ addBook }:NewBookInterface) => {
                       name="bookTitle"
                       placeholder="Book Title"
                       onChange={handleChange}
-                        // onChange={(event) => {
-                        //   handleChange(event);
-                        // }}
                       onBlur={handleBlur}
                       value={values.bookTitle}
                     />
@@ -114,4 +118,4 @@ const NewBook = ({ addBook }:NewBookInterface) => {
   );
 };
 
-export default NewBook;
+export default NewBookModal;

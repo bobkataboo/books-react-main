@@ -16,7 +16,7 @@ const Login = observer(() => {
       <VerticalImagesSlideshow />
 
       <div className="login-form center">
-        <BookSVG />
+        <BookSVG color="white" fill="white" />
         <Formik
           initialValues={{ username: '', password: '' }}
           onSubmit={(values, { setSubmitting }) => {

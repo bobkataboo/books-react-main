@@ -7,7 +7,7 @@ import book3 from '../../img/book3.jpeg';
 const images = [book1, book2, book3];
 
 const variants = {
-  hidden: { y: -700, opacity: 0.5 },
+  hidden: { y: -700 },
   visible: {
     y: 0,
     opacity: 1,
@@ -17,7 +17,6 @@ const variants = {
   },
   exiting: {
     y: 700,
-    opacity: 0.5,
     transition: { duration: 0.75 },
   },
 };
@@ -41,7 +40,6 @@ const VerticalImagesSlideshow = () => {
   return (
     <div className="image-container">
       <MotionConfig transition={{ duration: 0.7 }}>
-
         <AnimatePresence initial={false}>
           <motion.img
             className="image123"
@@ -54,9 +52,7 @@ const VerticalImagesSlideshow = () => {
             alt="src"
           />
         </AnimatePresence>
-
       </MotionConfig>
-
     </div>
   );
 };
