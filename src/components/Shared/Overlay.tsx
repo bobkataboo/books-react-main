@@ -25,6 +25,7 @@ const variants = {
 
 const InnerOverlay = ({ isSelected, redirect, handleClose }:IProps) => (
   <AnimatePresence>
+    {isSelected && (
     <motion.div
       initial="hidden"
       animate="visible"
@@ -37,10 +38,12 @@ const InnerOverlay = ({ isSelected, redirect, handleClose }:IProps) => (
       {redirect
         ? <Link to="/books" />
         : (
-        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-          <div onMouseUp={handleClose} style={{ width: '100%', height: '100%' }} />
+      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+          <motion.div onMouseUp={handleClose} style={{ width: '100%', height: '100%' }} />
         )}
     </motion.div>
+    )}
+
   </AnimatePresence>
 
 );

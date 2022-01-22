@@ -1,5 +1,5 @@
 /* eslint-disable class-methods-use-this */
-import React from 'react';
+import React, { useState } from 'react';
 
 import './App.scss';
 import {
@@ -14,20 +14,20 @@ import Login from './components/Login/Login';
 import Books from './components/Books/Books';
 import Register from './components/Register/Register';
 
-const SwitchWrapper = observer(({ location }) => (
+const SwitchWrapper = observer(({ location, setDarkMode, darkMode }) => (
   <>
 
-    <NavBar />
+    <NavBar setDarkMode={setDarkMode} darkMode={darkMode} />
     {/* <AnimatePresence> */}
     <Switch location={location}>
-      <Route path="/books/unread" render={() => <Books />} />
-      <Route path="/books/favourite" render={() => <Books />} />
-      <Route path="/books/finished" render={() => <Books />} />
-      <Route path="/books/:bookId" render={({ match }) => <Books bookId={match.params.bookId} />} />
-      <Route path="/books" render={() => <Books />} />
-      <Route path="/login" render={() => <Login />} />
-      <Route path="/register" render={() => <Register />} />
-      <Route path="/" render={() => <Books />} />
+      <Route path="/books/unread" render={() => <Books darkMode={darkMode} />} />
+      <Route path="/books/favourite" render={() => <Books darkMode={darkMode} />} />
+      <Route path="/books/finished" render={() => <Books darkMode={darkMode} />} />
+      <Route path="/books/:bookId" render={({ match }) => <Books bookId={match.params.bookId} darkMode={darkMode} />} />
+      <Route path="/books" render={() => <Books darkMode={darkMode} />} />
+      <Route path="/login" render={() => <Login darkMode={darkMode} />} />
+      <Route path="/register" render={() => <Register darkMode={darkMode} />} />
+      <Route path="/" render={() => <Books darkMode={darkMode} />} />
     </Switch>
     {/* </AnimatePresence> */}
 
@@ -35,11 +35,14 @@ const SwitchWrapper = observer(({ location }) => (
 ));
 
 function App() {
+  const [darkMode, setDarkMode] = useState(true);
   const location = useLocation();
   return (
-    <div id="App" className="App">
-      <SwitchWrapper location={location} />
-    </div>
+    <main id="App" className={`theme-${darkMode ? 'dark' : 'light'}`}>
+      <div id="AppContainer" className="App">
+        <SwitchWrapper darkMode={darkMode} setDarkMode={setDarkMode} location={location} />
+      </div>
+    </main>
   );
 }
 

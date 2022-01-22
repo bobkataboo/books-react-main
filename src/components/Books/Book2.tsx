@@ -42,7 +42,6 @@ const BookActions = observer(({
   book, store, menuOpen, handleClick, history, anchorEl, handleClose,
 }) => {
   const bo = 'cool';
-  console.log('@@@@ bo', bo);
   return (
     <div className="center-flex p ps3 pb3">
       <motion.div
@@ -66,7 +65,6 @@ const BookActions = observer(({
         className="btn"
         onClick={(event) => {
           event.stopPropagation();
-          console.log('@@@@@@@ book.id', book.id);
           history.push(`/books/${book.id}`);
         }}
       >

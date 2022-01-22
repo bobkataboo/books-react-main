@@ -7,6 +7,28 @@
 @import './components/Books/Books.scss';
 @import './components/Books/BookDetails.scss';
 @import './components/Register/Register.scss';
+@import './themes.scss';
+
+
+
+
+@mixin themify($themes) {
+  @each $theme, $map in $themes {
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
 
 .App {
   height: 100vh;
@@ -70,7 +92,7 @@
 }
 
 .overlay {
-  z-index: 1;
+  // z-index: 1000;
   position: fixed;
   background: rgba(0, 0, 0, 0.5);
   will-change: opacity;

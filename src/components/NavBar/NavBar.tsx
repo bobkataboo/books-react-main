@@ -7,7 +7,7 @@ import { logout } from '../../api/api';
 import { ReactComponent as LogoSVG } from '../../img/logo.svg';
 import user from '../../Stores/UserStore';
 
-const NavBar = observer(() => {
+const NavBar = observer(({ darkMode, setDarkMode }) => {
   const history = useHistory();
 
   return (
@@ -52,6 +52,9 @@ const NavBar = observer(() => {
             </div>
           </>
         ) }
+        <div className="nav-btn" onMouseUp={() => setDarkMode(!darkMode)}>
+          {darkMode ? 'Light theme' : 'Dark theme'}
+        </div>
       </div>
     </div>
   );

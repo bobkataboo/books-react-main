@@ -8,7 +8,7 @@ import { login } from '../../api/api';
 import { ReactComponent as BookSVG } from '../../img/book-blue.svg';
 import VerticalImagesSlideshow from '../Shared/VerticalImagesSlideshow';
 
-const Login = observer(() => {
+const Login = observer(({ darkMode }) => {
   const history = useHistory();
 
   return (
@@ -16,7 +16,7 @@ const Login = observer(() => {
       <VerticalImagesSlideshow />
 
       <div className="login-form center">
-        <BookSVG color="white" fill="white" />
+        {darkMode ? <BookSVG fill="white" /> : <BookSVG fill="#117D95" />}
         <Formik
           initialValues={{ username: '', password: '' }}
           onSubmit={(values, { setSubmitting }) => {

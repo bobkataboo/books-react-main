@@ -4,7 +4,7 @@ import { post } from '../../api/api';
 import { ReactComponent as BookSVG } from '../../img/book-blue.svg';
 import VerticalImagesSlideshow from '../Shared/VerticalImagesSlideshow';
 
-const Register = () => {
+const Register = ({ darkMode }:{ darkMode: boolean}) => {
   const validate = (values) => {
     const errors:any = {};
     if (!values.username) {
@@ -40,7 +40,7 @@ const Register = () => {
     <div className="Register">
       <VerticalImagesSlideshow />
       <div className="register-form center">
-        <BookSVG />
+        {darkMode ? <BookSVG fill="white" /> : <BookSVG fill="#117D95" />}
         <form onSubmit={formik.handleSubmit}>
           {/* <label htmlFor="email">Email Address</label> */}
           <div className="input p">

@@ -1,3 +1,19 @@
+@import '../../themes.scss';
+
+@mixin themify($themes) {
+  @each $theme, $map in $themes {
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
 .Books {
   position: absolute;
   bottom: 0;
@@ -5,32 +21,47 @@
   height: calc(100% - 60px);
   display: grid;
   grid-template-columns: 1fr 4fr;
+  @include themify($themes) {
+    background-color: themed('backgroundColor');
+  }
   .book-details{
+    z-index: 1050;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    background-color: white;
     box-shadow: 1px 1px 4px 0px grey;
     border: 5px solid #7CC0CF;
     border-radius: 10px;
+    @include themify($themes) {
+      background-color: themed('backgroundColor');
+      color: themed('textColor');
+      border-color: themed('borderColor');
+      box-shadow: themed('boxShadow');
+    }
     .left{
       margin: 44px;
       .title{
         margin-top: 16px;
         font-weight: 700;
         font-size: 28px;
-        color: #117D95;
+        @include themify($themes) {
+          color: themed('blueTextColor');
+        }
       }
       .author{
         margin-top: 8px;
         font-weight: 400;
         font-size: 20px;
-        color: #117D95;
+        @include themify($themes) {
+          color: themed('blueTextColor');
+        }
       }
       .released{
         margin-top: 8px;
         font-weight: 300;
         font-size: 16px;
-        color: #117D95;
+        @include themify($themes) {
+          color: themed('blueTextColor');
+        }
       }
     }
     .right{
@@ -38,7 +69,9 @@
         margin-bottom: 16px;
         font-weight: 700;
         font-size: 28px;
-        color: #117D95;
+        @include themify($themes) {
+          color: themed('blueTextColor');
+        }
       }
       margin: 44px 0px;
       margin-right: 44px;
@@ -47,12 +80,13 @@
   .sidebar{
     display: flex;
     flex-direction: column;
-    background-color: #8D8F04;
-    opacity: 0.69;
     max-width: 280px;
+    @include themify($themes) {
+      background-color: themed('buttonColor');
+  }
     .item{ 
       font-size: 24px;
-      z-index: 100;
+      // z-index: 100;
       display: flex;
       align-items: center;
       height: 30px;
@@ -80,17 +114,21 @@
   }
 
   .content{
+    // z-index: 1010;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     place-items: center;
     .book-content-container {
       max-height: 700px;
-      background-color: white;
-      box-shadow: 1px 1px 4px 0px grey;
       margin: 8px;
       width: 326px;
       border: 2px solid #117D95;
       border-radius: 6px;
+      @include themify($themes) {
+        background-color: themed('backgroundColor');
+        border-color: themed('borderColor');
+        box-shadow: themed('boxShadow');
+      }
       &.open{
         display: flex;
         // position: fixed;
@@ -117,7 +155,9 @@
         padding-left: 24px;
         padding-right: 24px;
         font-weight: 600;
-        color: #117D95;
+        @include themify($themes) {
+          color: themed('blueTextColor')
+        }
         font-size: 20px;
       }
       .progress {
@@ -125,7 +165,6 @@
       }
       .btn{
         border: 1px solid #117D95;
-        color: #117D95;
         height: 30px;
         text-align: center;
         vertical-align: middle;
@@ -134,6 +173,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        @include themify($themes) {
+          color: themed('blueTextColor')
+        }
         // &:hover{
         //   color: white;
         //   background-color: #117D95;

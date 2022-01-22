@@ -1,0 +1,32 @@
+$themes: (
+  light: (
+    backgroundColor: white,
+    textColor: #408bbd,
+    blueTextColor: #117D95,
+    placeholderColor: #408bbd,
+    buttonTextColor: white,
+    buttonTextTransform: none,
+    buttonTextHoverColor: #61b0e7,
+    buttonColor: #B0B252,
+    buttonBorder: 2px solid #408bbd,
+    navBarColor: #117D95,
+    inputBackground: #F2F2F2,
+    borderColor: transparent,
+    boxShadow: 1px 1px 4px 0px grey,
+  ),
+  dark: (
+    backgroundColor: #206B7B,
+    textColor: #ddf9ff,
+    blueTextColor: #ddf9ff,
+    placeholderColor: #92B1B8,
+    buttonTextColor: #77E6FF,
+    buttonTextTransform: uppercase,
+    buttonTextHoverColor: #ddd,
+    buttonColor: #174954,
+    buttonBorder: 1px solid #333,
+    navBarColor: #0C424F,
+    inputBackground: #135362,
+    borderColor: transparent,
+    boxShadow: 1px 2px 6px 0px rgb(6, 52, 78)
+  ),
+);

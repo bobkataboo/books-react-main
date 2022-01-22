@@ -6,7 +6,7 @@
 import { Button, Menu, MenuItem } from '@mui/material';
 import { observer } from 'mobx-react';
 import React, { useState, useRef } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import { AnimateSharedLayout, motion, useMotionValue } from 'framer-motion';
 import { padding } from '@mui/system';
 import { apiDelete } from '../../api/api';
@@ -20,17 +20,10 @@ const dismissDistance = 150;
 const openSpring = { type: 'spring', stiffness: 100, damping: 30 };
 const closeSpring = { type: 'spring', stiffness: 1000, damping: 1000 };
 
-const BookDescription = observer(() => (
-  <div>
-    Lorem ipsu rutrum tellus pellentesque eu tincidunt tortor aliquam. Donec ac odio tempor orci dapibus ultrices in iaculis nunc. Sit amet tellus cras adipiscing enim eu turpis egestas pretium. Sit amet mattis vulputate enim nulla aliquet porttitor lacus. Enim praesent elementum facilisis leo vel fringilla est ullamcorper. Facilisi nullam vehicula ipsum a arcu cursus vitae. Posuere ac ut consequat semper viverra. Ut tortor pretium viverra suspendisse. Sit amet consectetur adipiscing elit duis.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lacus sed viverra tellus in hac. Bibendum est ultricies integer quis auctor elit. Morbi enim nunc faucibus a pellentesque sit amet. Molestie nunc non blandit massa enim nec. Sit amet dictum sit amet justo. Orci dapibus ultrices in iaculis. Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi tristique. Libero justo laoreet sit amet. Mauris augue neque gravida in fermentum et sollicitudin ac. Auctor augue mauris augue neque gravida. Tellus rutrum tellus pellentesque eu tincidunt tortor aliquam. Donec ac odio tempor orci dapibus ultrices in iaculis nunc. Sit amet tellus cras adipiscing enim eu turpis egestas pretium. Sit amet mattis vulputate enim nulla aliquet porttitor lacus. Enim praesent elementum facilisis leo vel fringilla est ullamcorper. Facilisi nullam vehicula ipsum a arcu cursus vitae. Posuere ac ut consequat semper viverra. Ut tortor pretium viverra suspendisse. Sit amet consectetur adipiscing elit duis.
-  </div>
-));
-
 const BookActions = observer(({
-  book, store, menuOpen, handleClick, history, anchorEl, handleClose, setIndex, index,
+  book, store, menuOpen, handleClick, history, anchorEl, handleClose, setIndex, index, darkMode, setCurrentPath,
 }) => {
-  const bo = 'cool';
-  // console.log('@@@@ bo', bo);
+  const location = useLocation();
   return (
     <div className="center-flex p ps3 pb3">
       <motion.div
@@ -38,7 +31,7 @@ const BookActions = observer(({
         whileHover={{
           scale: 1.1,
           color: 'white',
-          backgroundColor: '#117D95',
+          backgroundColor: darkMode ? '#174954' : '#117D95',
         }}
         className="btn mr"
       >
@@ -49,13 +42,13 @@ const BookActions = observer(({
         whileHover={{
           scale: 1.1,
           color: 'white',
-          backgroundColor: '#117D95',
+          backgroundColor: darkMode ? '#174954' : '#117D95',
         }}
         className="btn"
         onClick={(event) => {
+          setCurrentPath(location.pathname);
           setIndex(index);
           event.stopPropagation();
-          // console.log('@@@@@@@ book.id', book.id);
           history.push(`/books/${book.id}`);
         }}
       >
@@ -128,18 +121,16 @@ const BookContent = observer(({
   handleClose,
   setIndex,
   index,
+  darkMode,
+  setCurrentPath,
 }) => (
   <>
 
     <motion.div
       ref={cardRef}
       className="book-content"
-  // style={{ zIndex, y }}
-  // layoutTransition={isSelected ? openSpring : closeSpring}
-      // drag={isSelected ? 'y' : false}
       onDrag={checkSwipeToDismiss}
       onUpdate={checkZIndex}
-      // style={isSelected ? { display: 'flex', padding: 32, width: '100%' } : null}
     >
       <motion.div>
         <motion.div style={{ height: 320 }} className="cover center">
@@ -148,10 +139,8 @@ const BookContent = observer(({
         <div className="title">
           {book.title}
         </div>
-        {/* <div className="progress">
-       Progress: 67%
-        </div> */}
         <BookActions
+          darkMode={darkMode}
           index={index}
           setIndex={setIndex}
           book={book}
@@ -161,23 +150,16 @@ const BookContent = observer(({
           history={history}
           anchorEl={anchorEl}
           handleClose={handleClose}
+          setCurrentPath={setCurrentPath}
         />
       </motion.div>
-      {/* {isSelected && (
-        <>
-          <motion.div className="grow" />
-          <motion.div style={{ width: 400, height: '100%' }}>
-            <BookDescription />
-          </motion.div>
-        </>
-      )} */}
     </motion.div>
 
   </>
 ));
 
 const Book = observer(({
-  book, store, index, isSelected, bookId, setIndex,
+  book, store, index, isSelected, bookId, setIndex, darkMode, setCurrentPath,
 }:BookInterface) => {
   const history = useHistory();
   const y = useMotionValue(0);
@@ -228,6 +210,8 @@ const Book = observer(({
 
         <Reader index={index} store={store} book={book} close={setOpen} open={open} />
         <BookContent
+          setCurrentPath={setCurrentPath}
+          darkMode={darkMode}
           index={index}
           setIndex={setIndex}
           checkSwipeToDismiss={checkSwipeToDismiss}

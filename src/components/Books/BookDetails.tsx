@@ -1,30 +1,10 @@
-import React from 'react';
-// import { Button, Menu, MenuItem } from '@mui/material';
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { observer } from 'mobx-react';
-// import Scrollbars from 'rc-scrollbars';
-// import React, { useMemo } from 'react';
-// import { useHistory } from 'react-router-dom';
-// import { apiDelete } from '../../api/api';
-// import { ReactComponent as StarredBookSVG } from '../../img/book-starred.svg';
 import { ReactComponent as UnstarredBookSVG } from '../../img/book-unstarred.svg';
-// import Reader from '../Reader/Reader';
-// import Reader from '../Reader/Reader';
-// import BookDetailsStore from './BookDetailsStore';
 
-const BookDetails = observer(({ book }:any) => {
-// const history = useHistory();
-// const store = useMemo(() => new BookDetailsStore(bookId), [bookId]);
-// const { book } = store;
-// const [anchorEl, setAnchorEl] = React.useState(null);
-// const menuOpen = Boolean(anchorEl);
-// const handleClick = (event) => {
-//   setAnchorEl(event.currentTarget);
-// };
-// const handleClose = () => {
-//   setAnchorEl(null);
-// };
-  if (!book) return null;
+const BookDetails = observer(({ book, setCurrentPath }:any) => {
+  useEffect(() => () => setCurrentPath(''), []);
 
   return (
     <motion.div
@@ -42,34 +22,38 @@ const BookDetails = observer(({ book }:any) => {
         margin: 'auto',
         zIndex: 100,
       }}
-      layoutId={book.id}
+      layoutId={book?.id}
     >
-      <motion.div className="left">
+      {book && (
+      <>
+        <motion.div className="left">
 
-        <motion.img style={{ height: 450, width: 326 }} src={book.coverUrl} alt="book cover" />
-        <motion.div className="title">
-          {book.title}
-        </motion.div>
-        <motion.div className="author">
-          {book.author}
-        </motion.div>
-        <motion.div className="released">
-          August 2017
-        </motion.div>
-
-      </motion.div>
-      <motion.div className="right">
-        <motion.div className="flex">
+          <motion.img style={{ height: 450, width: 326 }} src={book.coverUrl} alt="book cover" />
           <motion.div className="title">
-            Book Details
+            {book.title}
           </motion.div>
-          <div className="grow" />
-          <UnstarredBookSVG />
+          <motion.div className="author">
+            {book.author}
+          </motion.div>
+          <motion.div className="released">
+            August 2017
+          </motion.div>
+
         </motion.div>
-        <motion.div>
-          {book.description}
+        <motion.div className="right">
+          <motion.div className="flex">
+            <motion.div className="title">
+              Book Details
+            </motion.div>
+            <div className="grow" />
+            <UnstarredBookSVG />
+          </motion.div>
+          <motion.div>
+            {book.description}
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </>
+      )}
     </motion.div>
   );
 });

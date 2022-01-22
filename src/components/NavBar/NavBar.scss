@@ -1,9 +1,32 @@
+@import '../../themes.scss';
+
+@mixin themify($themes) {
+  @each $theme, $map in $themes {
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
+
 .NavBar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 60px;
+  @include themify($themes) {
+    background-color: themed('navBarColor');  
+  }
   background-color: #117D95;
   .links-container{
     display: flex;
