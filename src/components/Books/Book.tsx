@@ -30,7 +30,7 @@ const BookActions = observer(({
         whileTap={{ scale: 0.8 }}
         whileHover={{
           scale: 1.1,
-          color: 'white',
+          color: 'rgb(255, 255, 255)',
           backgroundColor: darkMode ? '#174954' : '#117D95',
         }}
         className="btn mr"
@@ -41,7 +41,7 @@ const BookActions = observer(({
         whileTap={{ scale: 0.8 }}
         whileHover={{
           scale: 1.1,
-          color: 'white',
+          color: 'rgb(255, 255, 255)',
           backgroundColor: darkMode ? '#174954' : '#117D95',
         }}
         className="btn"

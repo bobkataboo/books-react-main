@@ -2,9 +2,11 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { Link, useHistory } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { logout } from '../../api/api';
 import { ReactComponent as LogoSVG } from '../../img/logo.svg';
+import { ReactComponent as MoonSVG } from '../../img/moon.svg';
+import { ReactComponent as SunSVG } from '../../img/sun.svg';
 import user from '../../Stores/UserStore';
 
 const NavBar = observer(({ darkMode, setDarkMode }) => {
@@ -52,9 +54,36 @@ const NavBar = observer(({ darkMode, setDarkMode }) => {
             </div>
           </>
         ) }
-        <div className="nav-btn" onMouseUp={() => setDarkMode(!darkMode)}>
-          {darkMode ? 'Light theme' : 'Dark theme'}
-        </div>
+        <motion.div className="nav-btn dark-mode" onMouseUp={() => setDarkMode(!darkMode)}>
+          <AnimatePresence>
+            {darkMode && (
+            <motion.div
+              transition={{ duration: 0.4 }}
+              style={{ position: 'absolute' }}
+              initial={{ opacity: 0, scale: 2.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0 }}
+            >
+              <SunSVG width={25} />
+            </motion.div>
+            )}
+            {/* {darkMode ? <SunSVG width={25} /> : <MoonSVG width={25} />} */}
+          </AnimatePresence>
+          <AnimatePresence>
+            {!darkMode && (
+            <motion.div
+              transition={{ duration: 0.4 }}
+              style={{ position: 'absolute' }}
+              initial={{ opacity: 0, scale: 2.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0 }}
+            >
+              <MoonSVG width={25} />
+            </motion.div>
+            )}
+          </AnimatePresence>
+
+        </motion.div>
       </div>
     </div>
   );
